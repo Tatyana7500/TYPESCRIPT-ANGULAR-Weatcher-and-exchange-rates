@@ -10,7 +10,9 @@ import {ExchangeRate} from "../core/models";
 export class ExchangeRatesComponent implements OnInit {
   exchangeRates: ExchangeRate[] = [];
 
-  constructor(private exchangeRatesService: ExchangeRatesService) { }
+  constructor(
+    private exchangeRatesService: ExchangeRatesService,
+  ) {}
 
   ngOnInit(): void {
     this.exchangeRatesService.getExchangeRates()

@@ -1,12 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import {Controller, Get } from '@nestjs/common';
 import { ExchangeRatesService } from './exchange-rates.service';
+import {ExchangeRate} from 'src/models';
 
 @Controller()
 export class ExchangeRatesController {
   constructor(private readonly exchangeRatesService: ExchangeRatesService) {}
 
-  @Get()
-  getHello(): string {
-    return this.exchangeRatesService.getHello();
+  @Get('exchange-rates')
+  getExchangeRates(): ExchangeRate[] {
+    return this.exchangeRatesService.getExchangeRates();
   }
 }

@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  exchange_rates_api_url: 'https://api.exchangeratesapi.io/latest?base=USD'
+  weather_api_url: 'http://localhost:5000/weather',
+  capitals_api_url: 'http://localhost:5000/capitals',
+  exchange_rates_api_url: 'http://localhost:5000/exchange-rates'
 };
 
 /*

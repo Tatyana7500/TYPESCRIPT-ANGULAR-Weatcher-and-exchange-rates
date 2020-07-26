@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import {
-  ExchangeRatesService
+  WeatherService,
+  ExchangeRatesService,
 } from './services';
 
 @NgModule({
@@ -10,6 +11,7 @@ import {
     HttpClientModule,
   ],
   providers: [
+    WeatherService,
     ExchangeRatesService,
   ],
   declarations: []
