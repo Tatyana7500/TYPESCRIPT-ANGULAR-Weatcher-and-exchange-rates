@@ -1,0 +1,25 @@
+<div id="weather">
+    <h3 class="weather_title">Weather</h3>
+    <div class="weather_body">
+        <div class="body_buttons">
+          <button class="buttons_button"
+                  *ngFor="let city of weatherService.city;"
+                  (click)="getWeatherByCity(city)"
+          >
+            {{ city }}
+          </button>
+        </div>
+        <div class="body_info" *ngIf="weatherService.weather">
+          <div class="info_descriptions">
+            <span class="info_weather"><strong>City</strong> {{ weatherService.weather.city }}</span>
+            <span class="info_weather"><strong>Date</strong> {{ weatherService.weather.date | date: 'medium' }}</span>
+            <span class="info_weather"><strong>Humidity</strong> {{ weatherService.weather.humidity }} %</span>
+            <span class="info_weather"><strong>Visibility</strong> {{ weatherService.weather.visibility }} km</span>
+            <span class="info_weather"><strong>Temperature</strong> {{ weatherService.weather.temperature }} °C</span>
+          </div>
+          <div class="info_image">
+            <img class="weather_icon" src="{{weatherService.weather.icon}}" alt="weather"/>
+          </div>
+        </div>
+    </div>
+</div>
