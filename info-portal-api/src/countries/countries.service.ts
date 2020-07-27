@@ -29,6 +29,8 @@ export class CountriesService {
         try {
             const { data } = await this.httpService.get<Country[]>(this.apiConfigService.countriesApiUrl).toPromise();
             this.countries = <Country[]> data;
+            this.countries = this.countries.filter(item => !!item.capital);
+            this.countries.sort((a, b) => a.capital === b.capital ? 0 : a.capital > b.capital ? 1 : -1);
             console.log('countries updated');
         } catch (e) {
             console.log('countries update error', e);
