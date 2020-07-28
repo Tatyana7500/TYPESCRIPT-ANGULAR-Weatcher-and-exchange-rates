@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./widget.component.less'],
 })
 
-export class Widget implements OnInit{
+export class WidgetComponent implements OnInit{
   apiData: {
     sys: any
     main: any
@@ -22,10 +22,10 @@ export class Widget implements OnInit{
     temp_celsius: string
   };
   currentLocation: any;
-  sunIcon: string = "assets/icons/sun.svg";
-  moonIcon: string = "assets/icons/moon.svg";
-  tempIcon: string = "assets/icons/temp.svg";
-  pinIcon: string = "assets/icons/pin.svg";
+  sunIcon: string = 'assets/icons/sun.svg';
+  moonIcon: string = 'assets/icons/moon.svg';
+  tempIcon: string = 'assets/icons/temp.svg';
+  pinIcon: string = 'assets/icons/pin.svg';
 
   constructor() {
     this.apiData = {
@@ -53,11 +53,7 @@ export class Widget implements OnInit{
   }
 
   getCurrentLocation(): void {
-    try {
-      navigator.geolocation.getCurrentPosition(this.setCurrentLocation)
-    } catch (e) {
-      console.log('Please Allow to define your current location!')
-    }
+      navigator.geolocation.getCurrentPosition(this.setCurrentLocation);
   }
 
   setCurrentLocation = ({coords}): void => {
@@ -65,7 +61,7 @@ export class Widget implements OnInit{
     this.currentLocation = {
       latitude,
       longitude
-    }
+    };
     this.getData();
   }
 
@@ -74,7 +70,11 @@ export class Widget implements OnInit{
     try {
       fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.currentLocation.latitude}&lon=${this.currentLocation.longitude}&appid=7802e9420cad1e835c4f7aefa0959661`)
         .then(resp => resp.json())
-        .then(data => this.setData(data))
+        .then(data => {
+          this.setData(data);
+          console.log(data);
+        })
+        .catch(error => console.log(error.message));
     } catch (e) {
       console.log('Fetch error');
     }
@@ -84,7 +84,7 @@ export class Widget implements OnInit{
     this.apiData = data;
     const currentTime: Date = new Date();
     const sunSetTime: Date = new Date(this.apiData.sys.sunset * 1000);
-    const isDay: boolean = (currentTime.getTime() > sunSetTime.getTime());
+    const isDay: boolean = (currentTime.getTime() < sunSetTime.getTime());
     const country: string = this.apiData.sys.country;
     const temp_min: string = (this.apiData.main.temp_min - 273.15).toFixed(0);
     const temp_max: string = (this.apiData.main.temp_max - 273.15).toFixed(0);
@@ -104,6 +104,6 @@ export class Widget implements OnInit{
       feels_like,
       temp_celsius,
       ...this.apiData,
-    }
+    };
   }
 }
