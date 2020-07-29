@@ -22,10 +22,10 @@ export class WidgetComponent implements OnInit{
     temp_celsius: string
   };
   currentLocation: any;
-  sunIcon: string = 'assets/icons/sun.svg';
-  moonIcon: string = 'assets/icons/moon.svg';
-  tempIcon: string = 'assets/icons/temp.svg';
-  pinIcon: string = 'assets/icons/pin.svg';
+  pinIcon = 'assets/icons/pin.svg';
+  sunIcon = 'assets/icons/sun.svg';
+  tempIcon = 'assets/icons/temp.svg';
+  moonIcon = 'assets/icons/moon.svg';
 
   constructor() {
     this.apiData = {
@@ -41,11 +41,11 @@ export class WidgetComponent implements OnInit{
       feels_like: '',
       sunSetTime: new Date(),
       temp_celsius: '',
-    }
+    };
     this.currentLocation = {
       latitude: 0,
       longitude: 0,
-    }
+    };
   }
 
   ngOnInit(): void {
