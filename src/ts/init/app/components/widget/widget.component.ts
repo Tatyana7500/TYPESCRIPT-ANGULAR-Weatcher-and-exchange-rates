@@ -54,17 +54,13 @@ export class WidgetComponent implements OnInit{
   }
 
   getData(): void {
-    this.getCurrentLocation();
     try {
       fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.currentLocation.latitude}&lon=${this.currentLocation.longitude}&appid=7802e9420cad1e835c4f7aefa0959661`)
         .then(resp => resp.json())
-        .then(data => {
-          this.setData(data);
-          console.log(data);
-        })
+        .then(data => this.setData(data))
         .catch(error => console.log(error.message));
     } catch (e) {
-      console.log('Fetch error');
+      console.log(e);
     }
   }
 
