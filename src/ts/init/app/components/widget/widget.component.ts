@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit}  from '@angular/core';
+import { Weather } from '../../../../core/models';
 
 @Component({
   selector: 'app-widget',
@@ -7,20 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 
 export class WidgetComponent implements OnInit{
-  apiData: {
-    sys: any
-    main: any
-    name: string
-    isDay: boolean
-    country: string
-    temp_min: string
-    location: string
-    humidity: string
-    temp_max: string
-    feels_like: string
-    sunSetTime: Date
-    temp_celsius: string
-  };
+  apiData: Weather;
   currentLocation: any;
   pinIcon = 'assets/icons/pin.svg';
   sunIcon = 'assets/icons/sun.svg';
@@ -84,25 +72,17 @@ export class WidgetComponent implements OnInit{
     this.apiData = data;
     const currentTime: Date = new Date();
     const sunSetTime: Date = new Date(this.apiData.sys.sunset * 1000);
-    const isDay: boolean = (currentTime.getTime() < sunSetTime.getTime());
-    const country: string = this.apiData.sys.country;
-    const temp_min: string = (this.apiData.main.temp_min - 273.15).toFixed(0);
-    const temp_max: string = (this.apiData.main.temp_max - 273.15).toFixed(0);
-    const humidity: string = this.apiData.main.humidity;
-    const location: string = this.apiData.name;
-    const feels_like: string = (this.apiData.main.feels_like - 273.15).toFixed(0);
-    const temp_celsius: string = (this.apiData.main.temp - 273.15).toFixed(0);
 
     this.apiData = {
-      isDay,
-      country,
-      location,
-      humidity,
-      temp_min,
-      temp_max,
+      isDay: (currentTime.getTime() < sunSetTime.getTime()),
+      country: this.apiData.sys.country,
+      location: this.apiData.name,
+      humidity: this.apiData.main.humidity,
+      temp_min: (this.apiData.main.temp_min - 273.15).toFixed(0),
+      temp_max: (this.apiData.main.temp_max - 273.15).toFixed(0),
       sunSetTime,
-      feels_like,
-      temp_celsius,
+      feels_like: (this.apiData.main.feels_like - 273.15).toFixed(0),
+      temp_celsius: (this.apiData.main.temp - 273.15).toFixed(0),
       ...this.apiData,
     };
   }
